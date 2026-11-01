@@ -1,76 +1,98 @@
-# BUG: Deduct Point triggers Voucher Claim notification instead of Deduct Point
-
+# Bug Report Reference Template
+Standard QA bug report format for Jira, GitHub Issues, GitLab, and internal QA documentation.
+---
+## 1. Blank Template
+Copy this template for each new defect. Remove fields that are genuinely irrelevant, and mark unknown information as `Not provided` or `Not verified` rather than guessing.
+# [BUG] [Component/Module]: [Brief summary of failure]
 ## Defect Summary
-
 | Field | Value |
 |---|---|
 | Report Type | Bug |
-| Component | Where You Test |
-| Severity | Major, Minor |
-| Priority | High, medium, or Low |
-| Report Date | dd-mm-yyyy |
-
-| Platform | Environment | Version / Build |
-|---|---|---|
-| Web Portal (Merchant) | Staging | Link/none |
-| Android App | Staging | Version/none |
-| iOS App | Staging | Version/none
----
-
+| Bug ID / Ticket URL | [ID or link, if available] |
+| Component | [Feature / Module / Service] |
+| Reporter | [Name or team, if available] |
+| Severity | [Blocker / Critical / Major / Minor / Trivial / Unassessed] |
+| Priority | [Highest / High / Medium / Low / Unassessed] |
+| Status | [Open / In Progress / Fixed / Retest / Closed, or project-specific status] |
+| Report Date | [YYYY-MM-DD] |
+| Related Test Case (Qase) | [Link Required] |
+## Environment
+| Field | Value |
+|---|---|
+| Platform | [Web / Android / iOS / API / Other] |
+| Environment | [Staging] |
+| Version / Build | [Version and build number] |
+| Browser / Device | [Browser and version, or device model and OS] |
+| Account / Role | [Test account identifier or role; do not include credentials] |
+## Description
+[Describe the observed defect clearly and objectively.]
 ## Preconditions
-
-1. Member account logged in on Android or iOS client with push notification permissions enabled.
-2. Member account has sufficient active points balance (balance > deduct amount).
-3. Merchant account authenticated with permission to access Point Management.
-
----
-
+- [Required account state, permissions, data, or setup before reproducing]
 ## Steps to Reproduce
-
-1. Open Merchant Web Portal: `https://jeevawasa.omnihotelier.net/inject/point`.
-2. Search and select target member (`user_id: 884920`).
-3. Select transaction action **Deduct Point**.
-4. Enter point amount: `50`.
-5. Enter transaction note: `Testing deduct notification`.
-6. Submit and confirm the deduction.
-7. Observe push notification and notification center on the member mobile device.
-8. Tap the received notification to verify deep link target.
-
----
-
+1. [First action]
+2. [Second action]
+3. [Continue until the defect occurs]
 ## Actual Result
-
-- Push notification title: `"Voucher Claim"`
-- Push notification body: `"Voucher successfully claimed."`
-- Deep link behavior: Redirects to **My Voucher** page.
-- Database state: Points deducted correctly in database (balance changed from `500` to `450`), but wrong notification event triggered.
-
----
-
+[What actually happened. Include visible behavior and relevant system response.]
 ## Expected Result
-
-- Push notification title: `"Deduct Point"`
-- Push notification body: `"50 points deducted by Merchant Jeevawasa. Remaining balance: 450 points."`
-- Deep link behavior: Redirects to **Points History / Transaction Details** page.
-
+[What should have happened according to the requirement, design, or accepted behavior.]
+## Reproducibility Details
+| Field | Value |
+|---|---|
+| Reproducibility | [Always / Intermittent / Once / Unable to reproduce / Not tested] |
+| Attempts | [e.g., 5 attempts; 4 failures] |
+| Affected Platforms / Roles | [Known affected combinations] |
+| First Observed | [Date/time/time zone, if known] |
+| Last Observed | [Date/time/time zone, if known] |
+| Workaround | [Available workaround, or None known] |
+## Impact Assessment
+- **Functional impact:** [What feature or workflow is affected]
+- **Affected users / scope:** [Specific roles, users, platforms, or estimated scope; state if unknown]
+- **Business impact:** [Customer, operational, financial, compliance, or other impact]
+- **Data integrity impact:** [Whether data is missing, incorrect, duplicated, or unaffected]
+- **Release impact:** [Whether the defect blocks release or affects acceptance criteria]
+## Attachments / Evidence
+| File / Link | Description |
+|---|---|
+| [filename or URL] | [What the evidence demonstrates] |
+## Additional Notes
+[Any relevant context not captured above.]
 ---
-
-## Technical Context
-
-Suspected root cause: Event routing mismatch on point deduction endpoint. The deduction handler triggers `VOUCHER_CLAIM_EVENT` instead of `POINT_DEDUCTED_EVENT`.
-
-### Sample Payload (FCM / APNs)
-
-```json
-{
-  "to": "device_token",
-  "data": {
-    "type": "VOUCHER_CLAIM",
-    "transaction_id": "TX-DED-20261101-001",
-    "amount": 50
-  }
-}
-Attachments
-- web_merchant_deduct_confirmation.png
-- mobile_incorrect_notification_receipt.png
-- mobile_deeplink_redirect_voucher.mp4
+## 2. Field Definitions and Guidelines
+### Severity vs. Priority
+Severity describes the impact and seriousness of the defect. Priority describes how urgently the team should address it. Assess them independently according to the team's standards.
+**Severity examples (guidance only):**
+- **Blocker:** Testing or a critical business workflow cannot continue; no reasonable workaround exists.
+- **Critical:** A major feature or essential workflow is unusable, or there is severe data/security impact.
+- **Major:** Important functionality is broken, but the system or workflow may still be usable.
+- **Minor:** A limited issue with a small functional impact.
+- **Trivial:** Cosmetic or low-impact issue, such as a minor visual inconsistency.
+- **Unassessed:** There is not enough information to determine severity yet.
+**Priority examples (guidance only):**
+- **Highest:** Immediate action is required, for example due to a production outage or severe ongoing impact.
+- **High:** Should be addressed urgently in the current release or sprint.
+- **Medium:** Should be scheduled in normal prioritization.
+- **Low:** Can be addressed later when capacity allows.
+- **Unassessed:** Priority has not yet been agreed.
+Do not automatically map a severity value to a priority value. Follow the team's triage process.
+### Writing Reproduction Steps
+- Number the steps in the order a tester performs them.
+- Include relevant navigation, input values, account role, and preconditions.
+- Make the steps specific enough for another tester to repeat without guessing.
+- Keep actual and expected results separate and observable.
+### Evidence and Root Cause
+- Separate confirmed observations from hypotheses.
+- Never present a suspected root cause as confirmed without supporting evidence.
+- Include timestamps, request/correlation IDs, sanitized logs, and relevant response codes when available.
+- If evidence is unavailable, state that it was not captured or was not provided.
+- Redact secrets and personal data that are not necessary to diagnose the defect.
+### Reproducibility and Impact
+- Record attempts and outcomes when known.
+- Identify affected environments, platforms, roles, and versions based on evidence.
+- Do not claim that all users or platforms are affected unless verified.
+- State whether a workaround is known; do not invent one.
+### Retest and Regression
+- Do not mark a defect as retested or fixed unless verification actually occurred.
+- Distinguish a retest of the reported defect from regression testing of related functionality.
+- If verification has not happened, use `Not performed`.
+- Link the relevant test run or attach evidence when availabe
