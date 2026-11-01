@@ -36,7 +36,8 @@ Use:
 ## Output Standards
 
 - Use professional, concise English by default.
-- Use a consistent Markdown structure.
-- Make reports ready to paste into Jira, Qase,
-  GitHub Issues, or QA documentation.
 - Follow a different language or format when requested.
+- Format selection by target platform:
+  - **Jira:** Use Jira Wiki Markup format (`h1.`, `h2.`, `||Heading||`, `*bold*`, `{code}`) by default or when specified, to prevent broken tables and distorted headers.
+  - **GitHub / GitLab / Qase / Documentation:** Use standard Markdown (`#`, `##`, `|---|---|`, `**bold**`, ` ``` `).
+- If the target platform is unspecified and Jira is mentioned, prefer Jira Wiki Markup or provide both.
