@@ -73,68 +73,9 @@ Copy this template for each new defect. Remove fields that are genuinely irrelev
 |---|---|
 | [filename or URL] | [What the evidence demonstrates] |
 
-## Additional Notes
-
-[Any relevant context not captured above.]
-
-
-## 2. Field Definitions and Guidelines
-
-### Severity vs. Priority
-
-Severity describes the impact and seriousness of the defect. Priority describes how urgently the team should address it. Assess them independently according to the team's standards.
-
-**Severity examples (guidance only):**
-
-- **Blocker:** Testing or a critical business workflow cannot continue; no reasonable workaround exists.
-- **Critical:** A major feature or essential workflow is unusable, or there is severe data/security impact.
-- **Major:** Important functionality is broken, but the system or workflow may still be usable.
-- **Minor:** A limited issue with a small functional impact.
-- **Trivial:** Cosmetic or low-impact issue, such as a minor visual inconsistency.
-- **Unassessed:** There is not enough information to determine severity yet.
-
-**Priority examples (guidance only):**
-
-- **Highest:** Immediate action is required, for example due to a production outage or severe ongoing impact.
-- **High:** Should be addressed urgently in the current release or sprint.
-- **Medium:** Should be scheduled in normal prioritization.
-- **Low:** Can be addressed later when capacity allows.
-- **Unassessed:** Priority has not yet been agreed.
-
-Do not automatically map a severity value to a priority value. Follow the team's triage process.
-
-### Writing Reproduction Steps
-
-- Number the steps in the order a tester performs them.
-- Include relevant navigation, input values, account role, and preconditions.
-- Make the steps specific enough for another tester to repeat without guessing.
-- Keep actual and expected results separate and observable.
-
-### Evidence and Root Cause
-
-- Separate confirmed observations from hypotheses.
-- Never present a suspected root cause as confirmed without supporting evidence.
-- Include timestamps, request/correlation IDs, sanitized logs, and relevant response codes when available.
-- If evidence is unavailable, state that it was not captured or was not provided.
-- Redact secrets and personal data that are not necessary to diagnose the defect.
-
-### Reproducibility and Impact
-
-- Record attempts and outcomes when known.
-- Identify affected environments, platforms, roles, and versions based on evidence.
-- Do not claim that all users or platforms are affected unless verified.
-- State whether a workaround is known; do not invent one.
-
-### Retest and Regression
-
-- Do not mark a defect as retested or fixed unless verification actually occurred.
-- Distinguish a retest of the reported defect from regression testing of related functionality.
-- If verification has not happened, use `Not performed`.
-- Link the relevant test run or attach evidence when available.
-
 ---
 
-## 3. Concrete Example (Standard Markdown)
+## 2. Concrete Example (Standard Markdown)
 
 # [BUG] [Checkout]: Payment fails with 500 error when applying expired coupon code
 
@@ -207,14 +148,9 @@ Checkout button should remain active with original order total, allowing user to
 | `checkout_500_error_console.png` | Screenshot of browser console and network response |
 | `checkout_reproduce_recording.mp4` | Screen recording of reproduction steps |
 
-## Additional Notes
-
-- Issue does not occur when valid coupon code or no coupon code is applied.
-- Backend service log correlation ID: `req-b84f2910-449e`.
-
 ---
 
-## 4. Jira Wiki Markup Template (Alternative for Jira Text / Classic Mode)
+## 3. Jira Wiki Markup Template (For Jira Text / Classic Mode)
 
 *Use this format if your Jira editor uses classic Jira Text Formatting / Wiki Markup instead of Markdown.*
 
@@ -269,9 +205,6 @@ h2. Impact Assessment
 h2. Attachments / Evidence
 ||File / Link||Description||
 |[filename or URL]|[What evidence demonstrates]|
-
-h2. Additional Notes
-[Logs or extra context]
 ```
 
 ### Concrete Jira Wiki Markup Example:
@@ -338,10 +271,6 @@ h2. Attachments / Evidence
 ||File / Link||Description||
 |checkout_500_error_console.png|Screenshot of browser console and network response|
 |checkout_reproduce_recording.mp4|Screen recording of reproduction steps|
-
-h2. Additional Notes
-* Issue does not occur when valid coupon code or no coupon code is applied.
-* Backend service log correlation ID: req-b84f2910-449e.
 ```
 
 

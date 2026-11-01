@@ -18,6 +18,13 @@ Trigger when the user requests a bug report or submits a specific file format co
 Use:
 - references/bug-report-template.md
 
+### 2. Test Run / Execution Report
+
+Trigger when the user requests a test run report, test execution report, or QA sign-off / approval report.
+
+Use:
+- references/test-run-report-template.md
+
 ## Decision Rules
 
 - If you are in doubt, always ask the user; do not proceed with the work directly.
